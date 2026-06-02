@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Solva — Find your blood sugar support plan</title>
+<meta name="description" content="Take the 60-second Solva assessment and get a Blood Support plan matched to your daily habits. For adults managing their levels through everyday life.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F0E4;--surface:#FFFDF7;--ink:#22281E;--muted:#6E7060;--accent:#1F4034;--amber:#C0892F;--line:#E3DBC9;--rad:14px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Hanken Grotesk',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+.disp{font-family:'Bricolage Grotesque',sans-serif}
+.btn{display:inline-block;background:var(--accent);color:#FFFDF7;padding:15px 32px;border-radius:999px;font-weight:600;border:none;cursor:pointer;font-size:1rem;font-family:'Hanken Grotesk',sans-serif;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(31,64,52,.22)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* top */
+.top{display:flex;align-items:center;justify-content:space-between;padding:20px 26px;max-width:780px;margin:0 auto;width:100%}
+.brand{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.5rem;letter-spacing:-.01em}
+.brand i{color:var(--amber);font-style:normal}
+.top .help{font-size:.85rem;color:var(--muted)}
+
+/* progress */
+.bar{max-width:780px;margin:0 auto;width:100%;padding:0 26px}
+.bar .track{height:6px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar .fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--amber));border-radius:6px;transition:width .45s cubic-bezier(.4,0,.2,1)}
+.bar .meta{display:flex;justify-content:space-between;font-size:.76rem;color:var(--muted);margin-top:8px;text-transform:uppercase;letter-spacing:.06em}
+
+/* stage */
+.stage{flex:1;display:flex;align-items:center;justify-content:center;padding:30px 26px}
+.card{max-width:680px;width:100%}
+.step{display:none;animation:fade .5s ease}
+.step.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* intro */
+.intro{text-align:center}
+.intro .kick{display:inline-block;background:rgba(192,137,47,.14);color:var(--amber);font-weight:600;font-size:.8rem;padding:7px 16px;border-radius:999px;letter-spacing:.04em;margin-bottom:22px}
+.intro h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:clamp(2.3rem,6vw,3.7rem);line-height:1.02;letter-spacing:-.02em}
+.intro h1 em{font-style:normal;color:var(--accent);position:relative}
+.intro p{color:var(--muted);font-size:1.12rem;max-width:520px;margin:18px auto 30px}
+.intro .meta{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:26px;font-size:.86rem;color:var(--muted)}
+.intro .meta b{color:var(--ink)}
+.hero-strip{display:flex;gap:10px;justify-content:center;margin:34px auto 0;max-width:520px}
+.hero-strip img{width:33%;aspect-ratio:1;object-fit:cover;border-radius:18px}
+
+/* questions */
+.q .n{font-weight:600;color:var(--amber);font-size:.85rem;letter-spacing:.05em;text-transform:uppercase}
+.q h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.08;margin:10px 0 26px;letter-spacing:-.01em}
+.opts{display:grid;gap:12px}
+.opt{display:flex;align-items:center;gap:14px;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--rad);padding:18px 20px;cursor:pointer;font-size:1.05rem;transition:border-color .15s,background .15s,transform .12s}
+.opt:hover{border-color:var(--accent);transform:translateX(3px)}
+.opt.sel{border-color:var(--accent);background:rgba(31,64,52,.06)}
+.opt .tick{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);flex:0 0 auto;display:grid;place-items:center}
+.opt.sel .tick{border-color:var(--accent);background:var(--accent)}
+.opt.sel .tick:after{content:"✓";color:#fff;font-size:.72rem}
+.controls{display:flex;justify-content:space-between;align-items:center;margin-top:26px}
+.back{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.95rem;font-family:inherit}
+.back:hover{color:var(--ink)}
+
+/* loader */
+.loader{text-align:center}
+.loader .ring{width:70px;height:70px;border:5px solid var(--line);border-top-color:var(--accent);border-radius:50%;margin:0 auto 26px;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.loader h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:1.8rem}
+.loader .lines{margin-top:18px;color:var(--muted);min-height:28px}
+
+footer{text-align:center;padding:20px;font-size:.72rem;color:var(--muted);opacity:.85;max-width:680px;margin:0 auto}
+</style>
+</head>
+<body>
+<div class="top"><a class="brand" href="index.html">Sol<i>v</i>a</a><span class="help">60-second assessment</span></div>
+<div class="bar"><div class="track"><div class="fill" id="fill"></div></div><div class="meta"><span id="stepLabel">Welcome</span><span id="stepCount"></span></div></div>
+
+<div class="stage"><div class="card">
+
+  <!-- INTRO -->
+  <div class="step active" data-label="Welcome">
+    <div class="intro">
+      <span class="kick">Blood Support, matched to you</span>
+      <h1>Steady support starts with <em>your</em> routine.</h1>
+      <p>Answer five quick questions about your day and we'll match you to a Solva Blood Support plan — built around six botanicals and trace minerals.</p>
+      <button class="btn" onclick="next()">Start the assessment →</button>
+      <div class="hero-strip">
+        <!-- Photo: Artem Beliaikin (CC0) via Openverse --><img src="assets/walk.jpg" alt="Walking on an autumn path" loading="eager">
+        <!-- Photo: summer goes on (CC BY) via Openverse --><img src="assets/tea.jpg" alt="A warm cup of tea" loading="eager">
+        <!-- Photo: ianmalcm (CC BY) via Openverse --><img src="assets/market.jpg" alt="Fresh produce at a market" loading="eager">
+      </div>
+      <div class="meta"><span><b>6</b> active ingredients</span><span><b>30-day</b> returns</span><span><b>EU</b> shipping</span></div>
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="step" data-label="About you" data-q="age">
+    <div class="q"><div class="n">Question 1 of 5</div><h2>Which age range fits you?</h2>
+      <div class="opts">
+        <div class="opt" data-v="Under 40"><span class="tick"></span>Under 40</div>
+        <div class="opt" data-v="40–54"><span class="tick"></span>40–54</div>
+        <div class="opt" data-v="55–64"><span class="tick"></span>55–64</div>
+        <div class="opt" data-v="65 or older"><span class="tick"></span>65 or older</div>
+      </div>
+      <div class="controls"><button class="back" onclick="prev()">← Back</button><button class="btn" disabled onclick="next()">Continue</button></div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="step" data-label="Your goal" data-q="goal">
+    <div class="q"><div class="n">Question 2 of 5</div><h2>What brings you to Solva?</h2>
+      <div class="opts">
+        <div class="opt" data-v="staying ahead of your numbers"><span class="tick"></span>Staying ahead of my numbers</div>
+        <div class="opt" data-v="supporting steady daily energy"><span class="tick"></span>Supporting steady daily energy</div>
+        <div class="opt" data-v="building better everyday habits"><span class="tick"></span>Building better everyday habits</div>
+        <div class="opt" data-v="a recommendation from someone you trust"><span class="tick"></span>A doctor or family member suggested it</div>
+      </div>
+      <div class="controls"><button class="back" onclick="prev()">← Back</button><button class="btn" disabled onclick="next()">Continue</button></div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="step" data-label="Your day" data-q="activity">
+    <div class="q"><div class="n">Question 3 of 5</div><h2>How would you describe a typical day?</h2>
+      <div class="opts">
+        <div class="opt" data-v="mostly seated"><span class="tick"></span>Mostly sitting</div>
+        <div class="opt" data-v="on your feet a lot"><span class="tick"></span>On my feet a lot</div>
+        <div class="opt" data-v="a mix of both"><span class="tick"></span>A mix of both</div>
+        <div class="opt" data-v="active most days"><span class="tick"></span>Active most days</div>
+      </div>
+      <div class="controls"><button class="back" onclick="prev()">← Back</button><button class="btn" disabled onclick="next()">Continue</button></div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="step" data-label="Mealtimes" data-q="meals">
+    <div class="q"><div class="n">Question 4 of 5</div><h2>Mealtimes are usually…</h2>
+      <div class="opts">
+        <div class="opt" data-v="regular and planned"><span class="tick"></span>Regular and planned</div>
+        <div class="opt" data-v="a little all over the place"><span class="tick"></span>A bit all over the place</div>
+        <div class="opt" data-v="often rushed or skipped"><span class="tick"></span>Often skipped or rushed</div>
+        <div class="opt" data-v="something you're working on"><span class="tick"></span>Something I'm working on</div>
+      </div>
+      <div class="controls"><button class="back" onclick="prev()">← Back</button><button class="btn" disabled onclick="next()">Continue</button></div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="step" data-label="Experience" data-q="experience">
+    <div class="q"><div class="n">Question 5 of 5</div><h2>Have you taken a supplement like this before?</h2>
+      <div class="opts">
+        <div class="opt" data-v="yes, regularly"><span class="tick"></span>Yes, regularly</div>
+        <div class="opt" data-v="on and off"><span class="tick"></span>On and off</div>
+        <div class="opt" data-v="never"><span class="tick"></span>Never</div>
+        <div class="opt" data-v="just starting to look"><span class="tick"></span>Just starting to look</div>
+      </div>
+      <div class="controls"><button class="back" onclick="prev()">← Back</button><button class="btn" disabled onclick="finish()">See my plan</button></div>
+    </div>
+  </div>
+
+  <!-- LOADER -->
+  <div class="step" data-label="Building your plan">
+    <div class="loader"><div class="ring"></div><h2>Building your plan…</h2><div class="lines" id="lines"></div></div>
+  </div>
+
+</div></div>
+
+<footer>These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease. Solva is a food supplement and does not replace a varied diet.</footer>
+
+<script>
+const steps=[...document.querySelectorAll('.step')];
+let cur=0;
+const answers=JSON.parse(localStorage.getItem('solva')||'{}');
+function show(i){
+  steps.forEach((s,idx)=>s.classList.toggle('active',idx===i));
+  cur=i;
+  const total=steps.length-1; // exclude loader from count denominator
+  document.getElementById('fill').style.width=Math.round((i/(total))*100)+'%';
+  document.getElementById('stepLabel').textContent=steps[i].dataset.label;
+  const qIdx=steps[i].dataset.q?(' · Q'+(['age','goal','activity','meals','experience'].indexOf(steps[i].dataset.q)+1)):'';
+  document.getElementById('stepCount').textContent=i===0?'':(i<=5?('Step '+i+' of 5'):'');
+  window.scrollTo(0,0);
+}
+function next(){if(cur<steps.length-1)show(cur+1);}
+function prev(){if(cur>0)show(cur-1);}
+// option selection
+steps.forEach(step=>{
+  const q=step.dataset.q;if(!q)return;
+  step.querySelectorAll('.opt').forEach(opt=>{
+    opt.onclick=()=>{
+      step.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+      opt.classList.add('sel');
+      answers[q]=opt.dataset.v;
+      localStorage.setItem('solva',JSON.stringify(answers));
+      step.querySelector('.btn').disabled=false;
+    };
+    if(answers[q]===opt.dataset.v){opt.classList.add('sel');step.querySelector('.btn').disabled=false;}
+  });
+});
+function finish(){
+  next(); // show loader
+  const lines=["Reading your routine…","Matching botanicals…","Setting your daily amount…","Finalising your plan"];
+  const el=document.getElementById('lines');let i=0;
+  el.textContent=lines[0];
+  const t=setInterval(()=>{i++;if(i<lines.length){el.textContent=lines[i];}else{clearInterval(t);location.href='results.html';}},700);
+}
+show(0);
+</script>
+</body>
+</html>
