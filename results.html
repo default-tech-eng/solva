@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your plan — Solva</title>
+<meta name="description" content="Your personalised Solva Blood Support plan, matched to your daily routine.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F0E4;--surface:#FFFDF7;--ink:#22281E;--muted:#6E7060;--accent:#1F4034;--amber:#C0892F;--line:#E3DBC9;--rad:14px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Hanken Grotesk',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.disp{font-family:'Bricolage Grotesque',sans-serif}
+.wrap{max-width:920px;margin:0 auto;padding:0 24px}
+.btn{display:inline-block;background:var(--accent);color:#FFFDF7;padding:16px 34px;border-radius:999px;font-weight:600;border:none;cursor:pointer;font-size:1.05rem;font-family:'Hanken Grotesk',sans-serif;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(31,64,52,.24)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:20px 26px;max-width:920px;margin:0 auto}
+.brand{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.5rem}
+.brand i{color:var(--amber);font-style:normal}
+.top .links{display:flex;gap:22px;font-size:.85rem;color:var(--muted)}
+
+.hero{padding:40px 0 10px;text-align:center}
+.hero .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(31,64,52,.08);color:var(--accent);font-weight:600;font-size:.82rem;padding:8px 16px;border-radius:999px;margin-bottom:18px}
+.hero .badge .dot{width:8px;height:8px;border-radius:50%;background:var(--amber)}
+.hero h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:clamp(2.1rem,5.4vw,3.4rem);line-height:1.04;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .profile{color:var(--muted);font-size:1.12rem;max-width:600px;margin:16px auto 0}
+
+.summary{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:30px 32px;margin:34px 0;box-shadow:0 20px 50px rgba(34,40,30,.06)}
+.summary h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:1.1rem;margin-bottom:16px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:.9rem}
+.chip b{color:var(--accent)}
+
+.match{display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:center;background:var(--accent);color:#F4EEDF;border-radius:24px;overflow:hidden;margin:10px 0 36px}
+.match .txt{padding:34px}
+.match h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.9rem;line-height:1.05;margin-bottom:10px}
+.match p{opacity:.88}
+.match ul{list-style:none;margin:16px 0 0}
+.match li{padding:6px 0;opacity:.92;display:flex;gap:10px}
+.match li:before{content:"✓";color:var(--amber);font-weight:700}
+.match figure{height:100%;min-height:280px}
+.match img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
+@media(max-width:760px){.match{grid-template-columns:1fr}.match figure{min-height:200px;order:-1}}
+
+.formula{margin:10px 0 30px}
+.formula h3{font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:1.4rem;text-align:center;margin-bottom:6px}
+.formula .sub{text-align:center;color:var(--muted);margin-bottom:22px}
+.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.fc{background:var(--surface);border:1px solid var(--line);border-radius:var(--rad);padding:18px;text-align:center}
+.fc .disc{width:64px;height:64px;border-radius:50%;overflow:hidden;margin:0 auto 12px;border:1px solid var(--line)}
+.fc .disc img{width:100%;height:100%;object-fit:cover}
+.fc b{display:block;font-family:'Bricolage Grotesque',sans-serif}
+.fc span{font-size:.82rem;color:var(--amber);font-weight:600}
+@media(max-width:760px){.fg{grid-template-columns:repeat(2,1fr)}}
+
+.cta{text-align:center;padding:20px 0 70px}
+.cta .price{color:var(--muted);margin-top:12px;font-size:.92rem}
+footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:.74rem;text-align:center}
+footer .wrap{display:block}
+</style>
+</head>
+<body>
+<div class="top"><a class="brand" href="index.html">Sol<i>v</i>a</a><div class="links"><a href="index.html">Retake</a><a href="offer.html">Formula</a></div></div>
+
+<section class="hero"><div class="wrap">
+  <span class="badge"><span class="dot"></span>Your assessment is complete</span>
+  <h1>Your <em>Steady Routine</em> plan is ready.</h1>
+  <p class="profile" id="profile">Based on your answers, Solva Blood Support is a good match for the way your days are shaped.</p>
+</div></section>
+
+<div class="wrap">
+  <div class="summary">
+    <h3>What you told us</h3>
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <div class="match">
+    <div class="txt">
+      <h2>Solva Blood Support</h2>
+      <p>A once-daily formula built around six botanicals and trace minerals traditionally associated with metabolic balance — chosen to sit alongside everyday habits, not replace them.</p>
+      <ul>
+        <li>Six actives, full amounts on the label</li>
+        <li>Two capsules a day, with or without food</li>
+        <li>30-day supply per bottle</li>
+        <li>30-day returns · ships across the EU</li>
+      </ul>
+    </div>
+    <!-- Photo: summer goes on (CC BY) via Openverse --><figure><img src="assets/tea.jpg" alt="A calm moment with tea" loading="lazy"></figure>
+  </div>
+
+  <div class="formula">
+    <h3>What's inside your plan</h3>
+    <p class="sub">The six actives in every serving</p>
+    <div class="fg">
+      <div class="fc"><div class="disc"><img src="assets/cinnamon.jpg" alt="Cinnamon" loading="lazy"></div><b>Cinnamon Bark</b><span>70 mg</span></div>
+      <div class="fc"><div class="disc"><img src="assets/mulberry.jpg" alt="White mulberry leaf" loading="lazy"></div><b>White Mulberry</b><span>60 mg</span></div>
+      <div class="fc"><div class="disc"><img src="assets/juniper.jpg" alt="Juniper" loading="lazy"></div><b>Juniper</b><span>55 mg</span></div>
+      <div class="fc"><div class="disc"><img src="assets/bittermelon.jpg" alt="Bitter melon" loading="lazy"></div><b>Bitter Melon</b><span>50 mg</span></div>
+      <div class="fc"><div class="disc"><img src="assets/barberry.jpg" alt="Barberry, source of berberine" loading="lazy"></div><b>Berberine HCL</b><span>25 mg</span></div>
+      <div class="fc"><div class="disc"><img src="assets/capsules.jpg" alt="Chromium" loading="lazy"></div><b>Chromium</b><span>200 mcg</span></div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <a class="btn" href="offer.html">See your plan options →</a>
+    <div class="price">From €37.33 per bottle on the 90-day plan · cancel or reorder any time</div>
+  </div>
+</div>
+
+<footer><div class="wrap">These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease. Solva is a food supplement and does not replace a varied diet or medical advice.<br>© Gertil Online Limited · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="returns.html">Returns</a> · <a href="shipping.html">Shipping</a></div></footer>
+
+<script>
+const a=JSON.parse(localStorage.getItem('solva')||'{}');
+// profile sentence
+const profileEl=document.getElementById('profile');
+if(a.goal||a.activity||a.meals){
+  let day = a.activity?('Your days are '+a.activity):'Your days vary';
+  let goalTxt = a.goal?(', and you\\'re focused on '+a.goal):'';
+  let meal = a.meals?('. With mealtimes that are '+a.meals+', '):'. ';
+  profileEl.textContent = day+goalTxt+meal+'a steady once-daily routine is the easiest kind to keep — which is exactly what Solva is built for.';
+}
+// chips
+const labels={age:'Age',goal:'Goal',activity:'Daily life',meals:'Mealtimes',experience:'Experience'};
+const order=['age','goal','activity','meals','experience'];
+const chips=document.getElementById('chips');
+let any=false;
+order.forEach(k=>{if(a[k]){any=true;chips.innerHTML+='<span class="chip"><b>'+labels[k]+':</b> '+a[k]+'</span>';}});
+if(!any){chips.innerHTML='<span class="chip">Take the <b>60-second assessment</b> to personalise your plan</span>';}
+</script>
+</body>
+</html>
