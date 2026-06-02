@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout — Solva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6F0E4;--surface:#FFFDF7;--ink:#22281E;--muted:#6E7060;--accent:#1F4034;--accent2:#C0892F;--line:#E3DBC9;--rad:14px;}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Hanken Grotesk', system-ui, sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,.disp{font-family:'Bricolage Grotesque', system-ui, sans-serif;font-weight:700;line-height:1.08}
+.mono{font-family:'Hanken Grotesk', system-ui, sans-serif;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:22px 24px;max-width:1080px;margin:0 auto}
+.nav .brand{font-family:'Bricolage Grotesque', system-ui, sans-serif;font-size:1.45rem;letter-spacing:.005em;color:var(--ink)}
+.nav .links{display:flex;gap:26px;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase}
+.nav .links a{color:var(--muted)}
+.nav .links a:hover{color:var(--accent)}
+.btn{display:inline-block;background:var(--accent);color:#FFFDF7;padding:14px 26px;border-radius:var(--rad);font-weight:600;letter-spacing:.02em;border:none;cursor:pointer;font-family:'Hanken Grotesk', system-ui, sans-serif;font-size:.95rem;transition:transform .15s ease,opacity .15s}
+.btn:hover{transform:translateY(-2px);opacity:.94}
+footer{border-top:1px solid var(--line);margin-top:80px;padding:46px 0 60px;color:var(--muted);font-size:.85rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between}
+footer a{color:var(--muted)}footer a:hover{color:var(--accent)}
+.foot-links{display:flex;gap:18px;flex-wrap:wrap}
+.disclaimer{font-size:.74rem;color:var(--muted);opacity:.8;max-width:640px;margin-top:14px;line-height:1.5}
+@media(max-width:720px){.nav .links{display:none}}
+
+.co{max-width:1040px;margin:0 auto;padding:40px 24px 0;display:grid;grid-template-columns:1fr 420px;gap:48px;align-items:start}
+.co h1{font-size:2rem;margin-bottom:4px}
+.co .lede{color:var(--muted);margin-bottom:26px;font-size:.95rem}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.field input{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:var(--rad);background:var(--surface);color:var(--ink);font-size:1rem;font-family:'Hanken Grotesk', system-ui, sans-serif}
+.field input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(31,64,52,.08)}
+.field.err input{border-color:#c0392b}
+.field .msg{color:#c0392b;font-size:.76rem;margin-top:4px;display:none}
+.field.err .msg{display:block}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sec-title{font-family:'Bricolage Grotesque', system-ui, sans-serif;font-size:1.2rem;margin:26px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.summary{background:var(--surface);border:1px solid var(--line);border-radius:calc(var(--rad)*1.2);padding:26px;position:sticky;top:24px}
+.tier{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:var(--rad);padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:border-color .15s,background .15s}
+.tier:hover{border-color:var(--accent)}
+.tier.sel{border-color:var(--accent);background:rgba(31,64,52,.08)}
+.tier .dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);flex:0 0 auto;position:relative}
+.tier.sel .dot{border-color:var(--accent)}
+.tier.sel .dot:after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--accent)}
+.tier .t-name{font-weight:600}
+.tier .t-sub{font-size:.76rem;color:var(--muted)}
+.tier .t-price{margin-left:auto;font-family:'Hanken Grotesk', system-ui, sans-serif;font-weight:600}
+.tier .save{font-size:.68rem;color:var(--accent);display:block;text-align:right}
+.line{display:flex;justify-content:space-between;padding:8px 0;font-size:.92rem;color:var(--muted)}
+.total{display:flex;justify-content:space-between;padding:14px 0 0;margin-top:10px;border-top:1px solid var(--line);font-size:1.25rem;font-family:'Bricolage Grotesque', system-ui, sans-serif;color:var(--ink)}
+.promo{display:flex;gap:8px;margin:14px 0}
+.promo input{flex:1;padding:10px;border:1px solid var(--line);border-radius:var(--rad);background:var(--bg);color:var(--ink)}
+.promo button{padding:10px 16px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:var(--rad);cursor:pointer}
+.pay{width:100%;margin-top:18px;font-size:1.05rem;padding:16px}
+.pay:disabled{opacity:.6;cursor:not-allowed}
+.trust{font-size:.74rem;color:var(--muted);text-align:center;margin-top:12px}
+.success{display:none;text-align:center;padding:70px 24px;max-width:560px;margin:0 auto}
+.success.show{display:block}
+.success .check{width:74px;height:74px;border-radius:50%;background:var(--accent);color:#FFFDF7;display:grid;place-items:center;margin:0 auto 22px;font-size:2rem}
+.success h1{font-size:2.2rem;margin-bottom:10px}
+.spin{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;vertical-align:-2px;margin-right:8px}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media(max-width:860px){.co{grid-template-columns:1fr}.summary{position:static}}</style></head>
+<body>
+<header><nav class="nav"><a class="brand" href="index.html">Solva</a>
+<div class="links"><a href="index.html">Assessment</a><a href="offer.html">Formula</a><a href="checkout.html">Order</a></div></nav></header>
+
+<div class="co" id="co">
+  <div class="form-col">
+    <h1>Checkout</h1>
+    <p class="lede">Solva — Blood Support · secure order</p>
+    <div class="sec-title">Select your supply</div>
+    <div id="tiers"></div>
+    <div class="sec-title">Contact</div>
+    <div class="field" id="f-email"><label>Email address</label><input id="email" type="email" placeholder="you@email.com" autocomplete="email"><div class="msg">Enter a valid email.</div></div>
+    <div class="sec-title">Shipping</div>
+    <div class="row2"><div class="field" id="f-fn"><label>First name</label><input id="fn" autocomplete="given-name"><div class="msg">Required.</div></div>
+    <div class="field" id="f-ln"><label>Last name</label><input id="ln" autocomplete="family-name"><div class="msg">Required.</div></div></div>
+    <div class="field" id="f-addr"><label>Address</label><input id="addr" autocomplete="address-line1"><div class="msg">Required.</div></div>
+    <div class="row2"><div class="field" id="f-city"><label>City</label><input id="city"><div class="msg">Required.</div></div>
+    <div class="field" id="f-zip"><label>Postal code</label><input id="zip"><div class="msg">Required.</div></div></div>
+    <div class="field" id="f-country"><label>Country</label><input id="country" value="" placeholder="Country"><div class="msg">Required.</div></div>
+    <div class="sec-title">Payment</div>
+    <div class="field" id="f-card"><label>Card number</label><input id="card" inputmode="numeric" placeholder="1234 5678 9012 3456"><div class="msg">Enter a valid card number.</div></div>
+    <div class="row2"><div class="field" id="f-exp"><label>Expiry</label><input id="exp" placeholder="MM/YY"><div class="msg">MM/YY</div></div>
+    <div class="field" id="f-cvc"><label>CVC</label><input id="cvc" inputmode="numeric" placeholder="123"><div class="msg">3–4 digits.</div></div></div>
+    <button class="btn pay" id="pay">Pay <span id="payTotal"></span></button>
+    <div class="trust">🔒 Encrypted checkout · 30-day returns on unopened items · Ships across the EU</div>
+  </div>
+  <aside class="summary">
+    <div class="sec-title" style="margin-top:0">Order summary</div>
+    <div id="sumName" style="font-weight:600;margin-bottom:4px"></div>
+    <div style="font-size:.82rem;color:var(--muted);margin-bottom:16px">60 capsules per bottle · 2 capsules daily</div>
+    <div class="promo"><input id="promo" placeholder="Promo code"><button id="applyPromo">Apply</button></div>
+    <div id="promoMsg" style="font-size:.76rem;color:var(--accent);min-height:16px"></div>
+    <div class="line"><span>Subtotal</span><span id="sub"></span></div>
+    <div class="line"><span>Shipping</span><span>Free</span></div>
+    <div class="line" id="discLine" style="display:none"><span>Discount</span><span id="disc"></span></div>
+    <div class="total"><span>Total</span><span id="tot"></span></div>
+  </aside>
+</div>
+<div class="success" id="success"><div class="check">✓</div><h1>Order confirmed</h1><p style="color:var(--muted)">Thank you. A confirmation has been sent to <span id="okEmail"></span>. Your Solva course ships within one business day.</p><p style="margin-top:24px"><a class="btn" href="index.html">Back to Solva</a></p></div>
+<footer><div class="wrap">
+<div><strong style="color:var(--ink);font-family:'Bricolage Grotesque', system-ui, sans-serif;font-size:1.2rem">Solva</strong><br>Gertil Online Limited<br>167-169 Great Portland Street, 5th Floor<br>London, United Kingdom W1W 5PF<br>Company No. 15389792 · VAT GB465132991<br><a href="mailto:help@solva.com">help@solva.com</a>
+<div class="disclaimer">These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease.</div></div>
+<div class="foot-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="returns.html">Returns</a><a href="shipping.html">Shipping</a><a href="index.html">Home</a></div>
+</div></footer>
+<script>
+const CART_TIERS=[{qty:1,price:54.99,label:"1 Bottle",sub:"30-day supply"},{qty:2,price:79.98,label:"2 Bottles",sub:"60-day supply"},{qty:3,price:111.98,label:"3 Bottles",sub:"90-day supply · best value"}];
+const WEBHOOK_URL=""; // wired via SwissCRM
+const PROMOS={"SOLVA10":0.1};
+let selected=2, discount=0;
+const eur=n=>"€"+n.toFixed(2);
+function render(){
+  const t=document.getElementById("tiers");
+  t.innerHTML=CART_TIERS.map((c,i)=>{
+    const save=i===0?"":"save "+Math.round((1-c.price/(CART_TIERS[0].price*c.qty))*100)+"%";
+    return '<div class="tier'+(i===selected?' sel':'')+'" data-i="'+i+'"><div class="dot"></div><div><div class="t-name">'+c.label+'</div><div class="t-sub">'+c.sub+'</div></div><div class="t-price">'+eur(c.price)+(save?'<span class="save">Save '+Math.round((1-c.price/(CART_TIERS[0].price*c.qty))*100)+'%</span>':'')+'</div></div>';
+  }).join("");
+  t.querySelectorAll(".tier").forEach(el=>el.onclick=()=>{selected=+el.dataset.i;sync();});
+  sync();
+}
+function sync(){
+  const c=CART_TIERS[selected];
+  document.getElementById("sumName").textContent=c.label+" — Blood Support";
+  document.getElementById("sub").textContent=eur(c.price);
+  const d=c.price*discount;
+  document.getElementById("discLine").style.display=d?"flex":"none";
+  document.getElementById("disc").textContent="-"+eur(d);
+  document.getElementById("tot").textContent=eur(c.price-d);
+  document.getElementById("payTotal").textContent=eur(c.price-d);
+  document.querySelectorAll(".tier").forEach((el,i)=>el.classList.toggle("sel",i===selected));
+}
+document.getElementById("applyPromo").onclick=()=>{
+  const v=document.getElementById("promo").value.trim().toUpperCase();
+  const m=document.getElementById("promoMsg");
+  if(PROMOS[v]){discount=PROMOS[v];m.textContent="Code applied — "+Math.round(discount*100)+"% off";m.style.color="var(--accent)";}
+  else{discount=0;m.textContent="Invalid code";m.style.color="#c0392b";}
+  sync();
+};
+// card formatting
+const card=document.getElementById("card");
+card.addEventListener("input",()=>{let x=card.value.replace(/\D/g,"").slice(0,16);card.value=x.replace(/(.{4})/g,"$1 ").trim();});
+const exp=document.getElementById("exp");
+exp.addEventListener("input",()=>{let x=exp.value.replace(/\D/g,"").slice(0,4);if(x.length>2)x=x.slice(0,2)+"/"+x.slice(2);exp.value=x;});
+document.getElementById("cvc").addEventListener("input",e=>e.target.value=e.target.value.replace(/\D/g,"").slice(0,4));
+function valid(){
+  let ok=true;
+  const set=(id,cond)=>{document.getElementById(id).classList.toggle("err",!cond);if(!cond)ok=false;};
+  set("f-email",/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(document.getElementById("email").value));
+  set("f-fn",document.getElementById("fn").value.trim());
+  set("f-ln",document.getElementById("ln").value.trim());
+  set("f-addr",document.getElementById("addr").value.trim());
+  set("f-city",document.getElementById("city").value.trim());
+  set("f-zip",document.getElementById("zip").value.trim());
+  set("f-country",document.getElementById("country").value.trim());
+  set("f-card",document.getElementById("card").value.replace(/\s/g,"").length>=15);
+  set("f-exp",/^\d{2}\/\d{2}$/.test(document.getElementById("exp").value));
+  set("f-cvc",document.getElementById("cvc").value.length>=3);
+  return ok;
+}
+document.getElementById("pay").onclick=async()=>{
+  if(!valid())return;
+  const btn=document.getElementById("pay");
+  btn.disabled=true;btn.innerHTML='<span class="spin"></span>Processing…';
+  const c=CART_TIERS[selected];
+  const payload={product:"Blood Support",brand:"Solva",tier:c.label,qty:c.qty,total:+(c.price*(1-discount)).toFixed(2),currency:"EUR",email:document.getElementById("email").value,name:document.getElementById("fn").value+" "+document.getElementById("ln").value,address:document.getElementById("addr").value,city:document.getElementById("city").value,zip:document.getElementById("zip").value,country:document.getElementById("country").value};
+  try{if(WEBHOOK_URL){await fetch(WEBHOOK_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});}}catch(e){}
+  setTimeout(()=>{document.getElementById("co").style.display="none";document.querySelector(".summary")&&0;document.getElementById("okEmail").textContent=payload.email;document.getElementById("success").classList.add("show");window.scrollTo(0,0);},900);
+};
+render();
+</script></body></html>
