@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Checkout — Solva</title>
+<title>Checkout, Solva</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -71,7 +71,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--accent)}
 <div class="co" id="co">
   <div class="form-col">
     <h1>Checkout</h1>
-    <p class="lede">Solva — Blood Support · secure order</p>
+    <p class="lede">Solva, Blood Support · secure order</p>
     <div class="sec-title">Select your supply</div>
     <div id="tiers"></div>
     <div class="sec-title">Contact</div>
@@ -86,7 +86,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--accent)}
     <div class="sec-title">Payment</div>
     <div class="field" id="f-card"><label>Card number</label><input id="card" inputmode="numeric" placeholder="1234 5678 9012 3456"><div class="msg">Enter a valid card number.</div></div>
     <div class="row2"><div class="field" id="f-exp"><label>Expiry</label><input id="exp" placeholder="MM/YY"><div class="msg">MM/YY</div></div>
-    <div class="field" id="f-cvc"><label>CVC</label><input id="cvc" inputmode="numeric" placeholder="123"><div class="msg">3–4 digits.</div></div></div>
+    <div class="field" id="f-cvc"><label>CVC</label><input id="cvc" inputmode="numeric" placeholder="123"><div class="msg">3-4 digits.</div></div></div>
     <button class="btn pay" id="pay">Pay <span id="payTotal"></span></button>
     <div class="trust">🔒 Encrypted checkout · 30-day returns on unopened items · Ships across the EU</div>
   </div>
@@ -109,11 +109,11 @@ footer a{color:var(--muted)}footer a:hover{color:var(--accent)}
 <div class="foot-links"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="returns.html">Returns</a><a href="shipping.html">Shipping</a><a href="index.html">Home</a></div>
 </div></footer>
 <script>
-const CART_TIERS=[{qty:1,price:54.99,label:"1 Bottle",sub:"30-day supply"},{qty:2,price:79.98,label:"2 Bottles",sub:"60-day supply"},{qty:3,price:111.98,label:"3 Bottles",sub:"90-day supply · best value"}];
+const CART_TIERS=[{qty:1,price:149,label:"1 Bottle",sub:"30-day supply"},{qty:2,price:180,label:"2 Bottles",sub:"60-day supply"},{qty:3,price:240,label:"3 Bottles",sub:"90-day supply · best value"}];
 const WEBHOOK_URL=""; // wired via SwissCRM
 const PROMOS={"SOLVA10":0.1};
 let selected=2, discount=0;
-const eur=n=>"€"+n.toFixed(2);
+const eur=n=>"$"+(Number.isInteger(n)?n:n.toFixed(2));
 function render(){
   const t=document.getElementById("tiers");
   t.innerHTML=CART_TIERS.map((c,i)=>{
@@ -125,7 +125,7 @@ function render(){
 }
 function sync(){
   const c=CART_TIERS[selected];
-  document.getElementById("sumName").textContent=c.label+" — Blood Support";
+  document.getElementById("sumName").textContent=c.label+", Blood Support";
   document.getElementById("sub").textContent=eur(c.price);
   const d=c.price*discount;
   document.getElementById("discLine").style.display=d?"flex":"none";
@@ -137,7 +137,7 @@ function sync(){
 document.getElementById("applyPromo").onclick=()=>{
   const v=document.getElementById("promo").value.trim().toUpperCase();
   const m=document.getElementById("promoMsg");
-  if(PROMOS[v]){discount=PROMOS[v];m.textContent="Code applied — "+Math.round(discount*100)+"% off";m.style.color="var(--accent)";}
+  if(PROMOS[v]){discount=PROMOS[v];m.textContent="Code applied, "+Math.round(discount*100)+"% off";m.style.color="var(--accent)";}
   else{discount=0;m.textContent="Invalid code";m.style.color="#c0392b";}
   sync();
 };
